@@ -1,10 +1,10 @@
-//const { default: $ } = require('webdriverio/build/commands/browser/$');  - из-за этого была ошибка
+const CONTAINER = '#footer';
 
 class Footer {
   constructor() {}
 
   get container() {
-    return $('#footer');
+    return browser.$(CONTAINER);
   }
 
   get socialBlock() {
@@ -19,4 +19,5 @@ class Footer {
     };
   }
 }
+
 module.exports = new Footer();

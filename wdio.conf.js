@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 exports.config = {
   //
   // ====================
@@ -25,6 +27,21 @@ exports.config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
+
+  suites: {
+    homepage: ['./test/specs/**/homePage.js'],
+    login: ['./test/specs/**/loginExample.js'],
+    mocks: ['./test/specs/**/mocksExample.js'],
+    slider: ['./test/specs/**/sliderExample.js'],
+    wait: ['./test/specs/**/waitExample.js'],
+    regression: [
+      './test/specs/**/waitExample.js',
+      './test/specs/**/homePage.js',
+      './test/specs/**/loginExample.js',
+      './test/specs/**/mocksExample.js',
+      './test/specs/**/sliderExample.js',
+    ],
+  },
   //
   // ============
   // Capabilities
@@ -192,8 +209,19 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    browser.addCommand('loginWithCreds', async (email, password) => {
+      const payload = { user: { email, password } };
+      const token = await browser.call(async () => {
+        const result = await axios.post('https://api.realworld.io/api/users/login', payload);
+        return result.data.user.token;
+      });
+
+      await browser.execute(async (token) => {
+        localStorage.setItem('jwtToken', token);
+      }, token);
+    });
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name

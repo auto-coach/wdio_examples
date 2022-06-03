@@ -1,5 +1,3 @@
-//const { default: $ } = require('webdriverio/build/commands/element/$');  - из-за этого была ошибка
-
 class Header {
   constructor() {}
 
@@ -11,8 +9,8 @@ class Header {
     const navBlock = this.container.$('nav');
     return {
       contactLink: navBlock.$('#contact-link a'),
-      // signInBtn: ,
-      // phoneBlock:
+      singInBtn: navBlock.$('a.login'),
+      phoneBlock: navBlock.$('.shop-phone'),
     };
   }
 

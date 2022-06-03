@@ -1,5 +1,3 @@
-//const { default: $ } = require('webdriverio/build/commands/element/$');  - из-за этого была ошибка
-
 class Slider {
   constructor() {}
 

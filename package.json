@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "wdio wdio.conf.js"
+    "test": "wdio wdio.conf.js",
+    "test:homepage": "npx wdio --suite homepage",
+    "test:login": "npx wdio --suite login",
+    "test:mocks": "npx wdio --suite mocks",
+    "test:slider": "npx wdio --suite slider",
+    "test:wait": "npx wdio --suite wait",
+    "test:regression": "npx wdio --suite regression"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +20,7 @@
     "@wdio/local-runner": "^7.19.7",
     "@wdio/mocha-framework": "^7.19.7",
     "@wdio/spec-reporter": "^7.19.7",
+    "axios": "^0.27.2",
     "chromedriver": "^101.0.0",
     "wdio-chromedriver-service": "^7.3.2",
     "wdio-wait-for": "^2.2.6"

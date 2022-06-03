@@ -1,4 +1,8 @@
 const HomePage = require('../pages/Home');
+const { getElementWidth } = require('../utils/elements');
+
+const { socials } = require('../fixtures/footerLinks');
+const Slider = require('../pages/components/Slider');
 
 describe('Home Page', () => {
   before(async () => {
@@ -22,6 +26,16 @@ describe('Home Page', () => {
 
   it('search placeholder is correct', async () => {
     await expect(HomePage.searchInput).toHaveAttr('placeholder', 'Search');
+  });
+
+  Object.keys(socials).forEach((linkName) => {
+    it(`${linkName} social link have target="_blank"`, async () => {
+      const link = await HomePage.Footer.socialBlock.$(`li.${linkName} a`);
+
+      await expect(link).toBeClickable();
+      await expect(link).toHaveAttr('target', '_blank');
+      await expect(link).toHaveAttrContaining('href', socials[linkName].href);
+    });
   });
 });
 
